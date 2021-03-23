@@ -1,6 +1,6 @@
-# mdmp
+# This is an exercise project
 
-A new Flutter project.
+A new Flutter project for learning it's features and exercise by playing with it's features
 
 ## Getting Started
 
