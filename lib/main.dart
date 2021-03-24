@@ -96,9 +96,23 @@ class MyAppState extends State<MyApp> {
       home: Scaffold(
         appBar: AppBar(
           title: Text("My App"),
+          actions: [
+            FloatingActionButton(
+              onPressed: () => {},
+              child: Icon(
+                Icons.add,
+                color: Colors.white,
+              ),
+              backgroundColor: Colors.blue[100],
+            ),
+          ],
         ),
         body: SingleChildScrollView(
           child: ExpenseApp(),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => {},
+          child: Icon(Icons.add),
         ),
         // body: questionIndex < questions.length
         //     ? Quiz(
