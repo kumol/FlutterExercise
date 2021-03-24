@@ -97,7 +97,9 @@ class MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: Text("My App"),
         ),
-        body: ExpenseApp(),
+        body: SingleChildScrollView(
+          child: ExpenseApp(),
+        ),
         // body: questionIndex < questions.length
         //     ? Quiz(
         //         answerCounter: answerQuestion,
