@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mdmp/expenseapp/ExpenseApp.dart';
+import 'package:mdmp/expenseapp/model/Transaction.dart';
+import 'package:mdmp/expenseapp/widgets/New_transaction.dart';
+import 'package:mdmp/expenseapp/widgets/User_transaction.dart';
 
 void main() {
   runApp(MyApp());
@@ -89,6 +92,45 @@ class MyAppState extends State<MyApp> {
     }
   ];
 
+  //ExpenseApp
+  final List<Transaction> transaction = [
+    Transaction(
+      title: "Pant ",
+      amount: 2.2,
+      id: "3",
+      date: DateTime.now(),
+    ),
+    Transaction(
+      title: "Shirt",
+      amount: 32.3,
+      id: "2",
+      date: DateTime.now(),
+    ),
+  ];
+
+  void startAddingNewTransaction(context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext bd) {
+          return Container(
+            height: 300,
+            child: NewTransaction(addTransaction),
+          );
+        });
+  }
+
+  void addTransaction(String title, double amount) {
+    final newTx = Transaction(
+      title: title,
+      amount: amount,
+      date: DateTime.now(),
+      id: DateTime.now().toString(),
+    );
+    setState(() {
+      transaction.add(newTx);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -97,22 +139,28 @@ class MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: Text("My App"),
           actions: [
-            FloatingActionButton(
-              onPressed: () => {},
-              child: Icon(
-                Icons.add,
-                color: Colors.white,
+            Builder(
+              builder: (context) => FloatingActionButton(
+                child: Icon(Icons.add),
+                onPressed: () {
+                  startAddingNewTransaction(context);
+                },
               ),
-              backgroundColor: Colors.blue[100],
             ),
           ],
         ),
         body: SingleChildScrollView(
-          child: ExpenseApp(),
+          child: UserTransaction(
+              transaction: transaction, addTransaction: addTransaction),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () => {},
-          child: Icon(Icons.add),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: Builder(
+          builder: (context) => FloatingActionButton(
+            child: Icon(Icons.add),
+            onPressed: () {
+              startAddingNewTransaction(context);
+            },
+          ),
         ),
         // body: questionIndex < questions.length
         //     ? Quiz(
