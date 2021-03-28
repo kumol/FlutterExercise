@@ -114,7 +114,7 @@ class MyAppState extends State<MyApp> {
         builder: (BuildContext bd) {
           return Container(
             height: 300,
-            child: NewTransaction(addTransaction),
+            child: NewTransaction(addTransaction: addTransaction),
           );
         });
   }
@@ -150,8 +150,21 @@ class MyAppState extends State<MyApp> {
           ],
         ),
         body: SingleChildScrollView(
-          child: UserTransaction(
-              transaction: transaction, addTransaction: addTransaction),
+          child: Column(
+            children: [
+              Container(
+                width: double.infinity,
+                child: Card(
+                  color: Colors.blue[200],
+                  child: Text("Chart"),
+                  margin: EdgeInsets.all(10),
+                  elevation: 5,
+                ),
+              ),
+              UserTransaction(
+                  transaction: transaction, addTransaction: addTransaction),
+            ],
+          ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: Builder(

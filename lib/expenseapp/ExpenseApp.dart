@@ -7,18 +7,7 @@ class ExpenseApp extends StatelessWidget {
     return Column(
       //mainAxisAlignment: MainAxisAlignment.spaceAround,
       crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Container(
-          width: double.infinity,
-          child: Card(
-            color: Colors.blue[200],
-            child: Text("Chart"),
-            margin: EdgeInsets.all(10),
-            elevation: 5,
-          ),
-        ),
-        UserTransaction()
-      ],
+      children: [UserTransaction()],
     );
   }
 }
