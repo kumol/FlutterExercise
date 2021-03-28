@@ -8,14 +8,26 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   @override
-  State<StatefulWidget> createState() {
-    return MyAppState();
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: "My Expense App",
+      home: ExpenseApp(),
+      theme: ThemeData(primarySwatch: Colors.green),
+    );
   }
 }
 
-class MyAppState extends State<MyApp> {
+class ExpenseApp extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return ExpenseAppState();
+  }
+}
+
+class ExpenseAppState extends State<ExpenseApp> {
   int questionIndex = 0;
   int result = 0;
   void answerQuestion(int count) {
@@ -110,13 +122,14 @@ class MyAppState extends State<MyApp> {
 
   void startAddingNewTransaction(context) {
     showModalBottomSheet(
-        context: context,
-        builder: (BuildContext bd) {
-          return Container(
-            height: 300,
-            child: NewTransaction(addTransaction: addTransaction),
-          );
-        });
+      context: context,
+      builder: (BuildContext bd) {
+        return Container(
+          height: 300,
+          child: NewTransaction(addTransaction: addTransaction),
+        );
+      },
+    );
   }
 
   void addTransaction(String title, double amount) {
@@ -133,55 +146,52 @@ class MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("My App"),
-          actions: [
-            Builder(
-              builder: (context) => FloatingActionButton(
-                child: Icon(Icons.add),
-                onPressed: () {
-                  startAddingNewTransaction(context);
-                },
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("My App"),
+        actions: [
+          Builder(
+            builder: (context) => FloatingActionButton(
+              child: Icon(Icons.add),
+              onPressed: () {
+                startAddingNewTransaction(context);
+              },
+            ),
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              width: double.infinity,
+              child: Card(
+                color: Colors.blue[200],
+                child: Text("Chart"),
+                margin: EdgeInsets.all(10),
+                elevation: 5,
               ),
             ),
+            UserTransaction(
+                transaction: transaction, addTransaction: addTransaction),
           ],
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                width: double.infinity,
-                child: Card(
-                  color: Colors.blue[200],
-                  child: Text("Chart"),
-                  margin: EdgeInsets.all(10),
-                  elevation: 5,
-                ),
-              ),
-              UserTransaction(
-                  transaction: transaction, addTransaction: addTransaction),
-            ],
-          ),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: Builder(
-          builder: (context) => FloatingActionButton(
-            child: Icon(Icons.add),
-            onPressed: () {
-              startAddingNewTransaction(context);
-            },
-          ),
-        ),
-        // body: questionIndex < questions.length
-        //     ? Quiz(
-        //         answerCounter: answerQuestion,
-        //         questions: questions,
-        //         questionIndex: questionIndex)
-        //     : Result(result, resetQuiz),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: Builder(
+        builder: (context) => FloatingActionButton(
+          child: Icon(Icons.add),
+          onPressed: () {
+            startAddingNewTransaction(context);
+          },
+        ),
+      ),
+      // body: questionIndex < questions.length
+      //     ? Quiz(
+      //         answerCounter: answerQuestion,
+      //         questions: questions,
+      //         questionIndex: questionIndex)
+      //     : Result(result, resetQuiz),
     );
   }
 }
