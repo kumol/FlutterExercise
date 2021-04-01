@@ -166,7 +166,7 @@ class ExpenseAppState extends State<ExpenseApp> {
             Container(
               width: double.infinity,
               child: Card(
-                color: Colors.blue[200],
+                color: Theme.of(context).primaryColor,
                 child: Text("Chart"),
                 margin: EdgeInsets.all(10),
                 elevation: 5,
