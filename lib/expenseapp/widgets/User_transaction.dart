@@ -16,7 +16,14 @@ class _UserTransactionState extends State<UserTransaction> {
   Widget build(BuildContext context) {
     return Column(children: [
       //NewTransaction(addTransaction: widget.addTransaction),
-      TransactionList(widget.transaction),
+      widget.transaction.isEmpty
+          ? Image.asset(
+              "assets/images/imag.jpg",
+            )
+          : TransactionList(
+              widget.transaction,
+            ),
+      //TransactionList(widget.transaction),
     ]);
   }
 }

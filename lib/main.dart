@@ -15,7 +15,21 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: "My Expense App",
       home: ExpenseApp(),
-      theme: ThemeData(primarySwatch: Colors.green),
+      theme: ThemeData(
+        textTheme: ThemeData.dark().textTheme.copyWith(
+              title: TextStyle(
+                fontSize: 20,
+              ),
+            ),
+        appBarTheme: AppBarTheme(
+          textTheme: ThemeData.light().textTheme.copyWith(
+                title: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+        ),
+        primarySwatch: Colors.purple,
+      ),
     );
   }
 }
@@ -126,7 +140,9 @@ class ExpenseAppState extends State<ExpenseApp> {
       builder: (BuildContext bd) {
         return Container(
           height: 300,
-          child: NewTransaction(addTransaction: addTransaction),
+          child: NewTransaction(
+            addTransaction: addTransaction,
+          ),
         );
       },
     );
@@ -152,6 +168,7 @@ class ExpenseAppState extends State<ExpenseApp> {
         actions: [
           Builder(
             builder: (context) => FloatingActionButton(
+              backgroundColor: Theme.of(context).primaryColorLight,
               child: Icon(Icons.add),
               onPressed: () {
                 startAddingNewTransaction(context);
@@ -173,7 +190,9 @@ class ExpenseAppState extends State<ExpenseApp> {
               ),
             ),
             UserTransaction(
-                transaction: transaction, addTransaction: addTransaction),
+              transaction: transaction,
+              addTransaction: addTransaction,
+            ),
           ],
         ),
       ),
